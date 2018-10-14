@@ -59,7 +59,7 @@ Based on the current requirements and existing information, some assumptions wer
  In charge of DBMS Implementation | 
  In charge of Application Implementation | Do majority of Final Presentation 
  Manage GitHub Repository for Project | Type up progress report 
- | | Manage Extraneous Files 
+ | Manage Extraneous Files 
 
 | Shared |
 | ---------- |
