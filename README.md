@@ -33,6 +33,7 @@ Based on the current requirements and existing information, some assumptions wer
 - Donors can see their past donations
 
 ### Proposed Schedule
+
  Date | Item 
  --- | --- 
  Oct 17 | First Presentation Completed 
@@ -47,6 +48,7 @@ Based on the current requirements and existing information, some assumptions wer
  Dec 4  | Final Project Presentation 
  Dec 5  | Individual Reports Completed 
  Dec 6  | All reports Due 
+ 
 ### Team Member Assignments
 
  Juan | Jordan 
