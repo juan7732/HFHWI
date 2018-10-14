@@ -33,32 +33,33 @@ Based on the current requirements and existing information, some assumptions wer
 - Donors can see their past donations
 
 ### Proposed Schedule
-| Date | Item |
-| --- | --- |
-| Oct 17 | First Presentation Completed |
-| Oct 25 | Data Models Created |
-| Oct 25 | First Page Created |
-| Nov 4  | Start Progress Report |
-| Nov 8  | Login, Donations, Volunteer Pages Finished |
-| Nov 8  | Skeleton of other pages done |
-| Nov 13 | Written Progress Report |
-| Dec 2  | Final Presentation completed |
-| Dec 3  | Team Report completed |
-| Dec 4  | Final Project Presentation |
-| Dec 5  | Individual Reports Completed |
-| Dec 6  | All reports Due |
+ Date | Item 
+ --- | --- 
+ Oct 17 | First Presentation Completed 
+ Oct 25 | Data Models Created 
+ Oct 25 | First Page Created 
+ Nov 4  | Start Progress Report 
+ Nov 8  | Login, Donations, Volunteer Pages Finished 
+ Nov 8  | Skeleton of other pages done 
+ Nov 13 | Written Progress Report 
+ Dec 2  | Final Presentation completed 
+ Dec 3  | Team Report completed 
+ Dec 4  | Final Project Presentation 
+ Dec 5  | Individual Reports Completed 
+ Dec 6  | All reports Due 
 ### Team Member Assignments
-| Juan | Jordan |
-| ------------- | ------------- |
-| Pick Language to use | Create and Manage Project Schedule |
-| Pick DBMS to use | Create Entity Relationship Diagram |
-| Create Relational Schema Diagram | Populate Database when needed |
-| Present First Presentation | In Charge of Documentation |
-| Keep Personal notes on DBMS | |
-| In charge of DBMS Implementation | | 
-| In charge of Application Implementation | Do majority of Final Presentation |
-| Manage GitHub Repository for Project | Type up progress report |
-| | Manage Extraneous Files |
+
+ Juan | Jordan 
+ ------------- | ------------- 
+ Pick Language to use | Create and Manage Project Schedule 
+ Pick DBMS to use | Create Entity Relationship Diagram 
+ Create Relational Schema Diagram | Populate Database when needed 
+ Present First Presentation | In Charge of Documentation 
+ Keep Personal notes on DBMS | 
+ In charge of DBMS Implementation | 
+ In charge of Application Implementation | Do majority of Final Presentation 
+ Manage GitHub Repository for Project | Type up progress report 
+ | | Manage Extraneous Files 
 
 | Shared |
 | ---------- |
