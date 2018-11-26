@@ -14,40 +14,32 @@ CREATE TABLE "WIMS_donation" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "
 --
 -- Create model Donor
 --
-CREATE TABLE "WIMS_donor" ("DonorID" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "DonorName" varchar(45) NOT NULL, "DonorUserName" varchar(45) NOT NULL, "DonorPassword"
-varchar(45) NOT NULL);
+CREATE TABLE "WIMS_donor" ("DonorID" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "DonorName" varchar(45) NOT NULL, "DonorUserName" varchar(45) NOT NULL, "DonorPassword" varchar(45) NOT NULL);
 --
 -- Create model Item
 --
-CREATE TABLE "WIMS_item" ("ItemID" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "Name" varchar(45) NOT NULL, "Description" text NOT NULL, "InStock" integer NOT NULL, "ARV
-" decimal NOT NULL, "Weight" decimal NULL, "Image" text NOT NULL);
+CREATE TABLE "WIMS_item" ("ItemID" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "Name" varchar(45) NOT NULL, "Description" text NOT NULL, "InStock" integer NOT NULL, "ARV" decimal NOT NULL, "Weight" decimal NULL, "Image" text NOT NULL);
 --
 -- Create model Project
 --
-CREATE TABLE "WIMS_project" ("ProjectID" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "ProjectName" varchar(45) NOT NULL, "ProjectZip" integer NOT NULL, "DateProposed" da
-te NULL, "DateAccepted" date NULL, "DateCompleted" date NULL, "ProjectLocation" text NOT NULL, "ProjectDescription" text NULL);
+CREATE TABLE "WIMS_project" ("ProjectID" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "ProjectName" varchar(45) NOT NULL, "ProjectZip" integer NOT NULL, "DateProposed" date NULL, "DateAccepted" date NULL, "DateCompleted" date NULL, "ProjectLocation" text NOT NULL, "ProjectDescription" text NULL);
 --
 -- Create model ProjectMaterials
 --
-CREATE TABLE "WIMS_projectmaterials" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "QuantityNeeded" integer NOT NULL, "QuantityAcquired" integer NOT NULL, "ItemID_id
-" integer NOT NULL REFERENCES "WIMS_item" ("ItemID") DEFERRABLE INITIALLY DEFERRED, "ProjectID_id" integer NOT NULL REFERENCES "WIMS_project" ("ProjectID") DEFERRABLE IN
-ITIALLY DEFERRED);
+CREATE TABLE "WIMS_projectmaterials" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "QuantityNeeded" integer NOT NULL, "QuantityAcquired" integer NOT NULL, "ItemID_id" integer NOT NULL REFERENCES "WIMS_item" ("ItemID") DEFERRABLE INITIALLY DEFERRED, "ProjectID_id" integer NOT NULL REFERENCES "WIMS_project" ("ProjectID") DEFERRABLE IN ITIALLY DEFERRED);
 --
 -- Create model ProjectMembers
 --
-CREATE TABLE "WIMS_projectmembers" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "ProjectLead" BLOB NOT NULL, "ProjectID_id" integer NOT NULL REFERENCES "WIMS_projec
-t" ("ProjectID") DEFERRABLE INITIALLY DEFERRED);
+CREATE TABLE "WIMS_projectmembers" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "ProjectLead" BLOB NOT NULL, "ProjectID_id" integer NOT NULL REFERENCES "WIMS_project" ("ProjectID") DEFERRABLE INITIALLY DEFERRED);
 --
 -- Create model User
 --
-CREATE TABLE "WIMS_user" ("UserID" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "FirstName" varchar(30) NOT NULL, "LastName" varchar(30) NOT NULL, "Phone" varchar(45) NOT
- NULL, "ZipCode" integer NOT NULL, "DateJoined" date NOT NULL);
+CREATE TABLE "WIMS_user" ("UserID" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "FirstName" varchar(30) NOT NULL, "LastName" varchar(30) NOT NULL, "Phone" varchar(45) NOT NULL, "ZipCode" integer NOT NULL, "DateJoined" date NOT NULL);
 --
 -- Add field UserId to projectmembers
 --
 ALTER TABLE "WIMS_projectmembers" RENAME TO "WIMS_projectmembers__old";
-CREATE TABLE "WIMS_projectmembers" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "ProjectLead" BLOB NOT NULL, "ProjectID_id" integer NOT NULL REFERENCES "WIMS_projec
-t" ("ProjectID") DEFERRABLE INITIALLY DEFERRED, "UserId_id" integer NOT NULL REFERENCES "WIMS_user" ("UserID") DEFERRABLE INITIALLY DEFERRED);
+CREATE TABLE "WIMS_projectmembers" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "ProjectLead" BLOB NOT NULL, "ProjectID_id" integer NOT NULL REFERENCES "WIMS_project" ("ProjectID") DEFERRABLE INITIALLY DEFERRED, "UserId_id" integer NOT NULL REFERENCES "WIMS_user" ("UserID") DEFERRABLE INITIALLY DEFERRED);
 INSERT INTO "WIMS_projectmembers" ("id", "ProjectLead", "ProjectID_id", "UserId_id") SELECT "id", "ProjectLead", "ProjectID_id", NULL FROM "WIMS_projectmembers__old";
 DROP TABLE "WIMS_projectmembers__old";
 CREATE INDEX "WIMS_projectmaterials_ItemID_id_4966a42f" ON "WIMS_projectmaterials" ("ItemID_id");
@@ -58,8 +50,7 @@ CREATE INDEX "WIMS_projectmembers_UserId_id_43c98313" ON "WIMS_projectmembers" (
 -- Add field DonorID to donation
 --
 ALTER TABLE "WIMS_donation" RENAME TO "WIMS_donation__old";
-CREATE TABLE "WIMS_donation" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "Quantity" integer NOT NULL, "ARV" decimal NULL, "DonorID_id" integer NOT NULL REFERENCES
-"WIMS_donor" ("DonorID") DEFERRABLE INITIALLY DEFERRED);
+CREATE TABLE "WIMS_donation" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "Quantity" integer NOT NULL, "ARV" decimal NULL, "DonorID_id" integer NOT NULL REFERENCES "WIMS_donor" ("DonorID") DEFERRABLE INITIALLY DEFERRED);
 INSERT INTO "WIMS_donation" ("id", "Quantity", "ARV", "DonorID_id") SELECT "id", "Quantity", "ARV", NULL FROM "WIMS_donation__old";
 DROP TABLE "WIMS_donation__old";
 CREATE INDEX "WIMS_donation_DonorID_id_d95165f4" ON "WIMS_donation" ("DonorID_id");
@@ -67,8 +58,7 @@ CREATE INDEX "WIMS_donation_DonorID_id_d95165f4" ON "WIMS_donation" ("DonorID_id
 -- Add field ItemID to donation
 --
 ALTER TABLE "WIMS_donation" RENAME TO "WIMS_donation__old";
-CREATE TABLE "WIMS_donation" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "Quantity" integer NOT NULL, "ARV" decimal NULL, "DonorID_id" integer NOT NULL REFERENCES
-"WIMS_donor" ("DonorID") DEFERRABLE INITIALLY DEFERRED, "ItemID_id" integer NOT NULL REFERENCES "WIMS_item" ("ItemID") DEFERRABLE INITIALLY DEFERRED);
+CREATE TABLE "WIMS_donation" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "Quantity" integer NOT NULL, "ARV" decimal NULL, "DonorID_id" integer NOT NULL REFERENCES "WIMS_donor" ("DonorID") DEFERRABLE INITIALLY DEFERRED, "ItemID_id" integer NOT NULL REFERENCES "WIMS_item" ("ItemID") DEFERRABLE INITIALLY DEFERRED);
 INSERT INTO "WIMS_donation" ("id", "Quantity", "ARV", "DonorID_id", "ItemID_id") SELECT "id", "Quantity", "ARV", "DonorID_id", NULL FROM "WIMS_donation__old";
 DROP TABLE "WIMS_donation__old";
 CREATE INDEX "WIMS_donation_DonorID_id_d95165f4" ON "WIMS_donation" ("DonorID_id");
@@ -77,18 +67,15 @@ CREATE INDEX "WIMS_donation_ItemID_id_adba3118" ON "WIMS_donation" ("ItemID_id")
 -- Add field UserId to authentication
 --
 ALTER TABLE "WIMS_authentication" RENAME TO "WIMS_authentication__old";
-CREATE TABLE "WIMS_authentication" ("UserName" varchar(45) NOT NULL PRIMARY KEY, "Password" text NOT NULL, "LastLogin" datetime NOT NULL, "Instances" integer NOT NULL, "
-UserId_id" integer NOT NULL REFERENCES "WIMS_user" ("UserID") DEFERRABLE INITIALLY DEFERRED);
-INSERT INTO "WIMS_authentication" ("UserName", "Password", "LastLogin", "Instances", "UserId_id") SELECT "UserName", "Password", "LastLogin", "Instances", NULL FROM "WIM
-S_authentication__old";
+CREATE TABLE "WIMS_authentication" ("UserName" varchar(45) NOT NULL PRIMARY KEY, "Password" text NOT NULL, "LastLogin" datetime NOT NULL, "Instances" integer NOT NULL, "UserId_id" integer NOT NULL REFERENCES "WIMS_user" ("UserID") DEFERRABLE INITIALLY DEFERRED);
+INSERT INTO "WIMS_authentication" ("UserName", "Password", "LastLogin", "Instances", "UserId_id") SELECT "UserName", "Password", "LastLogin", "Instances", NULL FROM "WIMS_authentication__old";
 DROP TABLE "WIMS_authentication__old";
 CREATE INDEX "WIMS_authentication_UserId_id_a48bcc4d" ON "WIMS_authentication" ("UserId_id");
 --
 -- Add field UserID to admin
 --
 ALTER TABLE "WIMS_admin" RENAME TO "WIMS_admin__old";
-CREATE TABLE "WIMS_admin" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "ImpersonationID" integer NULL, "UserID_id" integer NOT NULL REFERENCES "WIMS_user" ("UserID"
-) DEFERRABLE INITIALLY DEFERRED);
+CREATE TABLE "WIMS_admin" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "ImpersonationID" integer NULL, "UserID_id" integer NOT NULL REFERENCES "WIMS_user" ("UserID") DEFERRABLE INITIALLY DEFERRED);
 INSERT INTO "WIMS_admin" ("id", "ImpersonationID", "UserID_id") SELECT "id", "ImpersonationID", NULL FROM "WIMS_admin__old";
 DROP TABLE "WIMS_admin__old";
 CREATE INDEX "WIMS_admin_UserID_id_845245f9" ON "WIMS_admin" ("UserID_id");
