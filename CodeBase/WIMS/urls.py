@@ -12,4 +12,6 @@ urlpatterns = [
     path('members/dashboard/search/<str:searchString>/', views.member_dashboard_search, name='member_dashboard_search'),
     path('members/projects/<int:project_id>/', views.project_page, name='project_page'),
     path('donors/dashboard/', views.donor_dashboard, name='donor_dashboard'),
+    path('donors/makedonation/', views.make_donation, name='make_donation'),
+    path('donors/finalizedonation/', views.make_donation_two, name='finalize_donation'),
 ]

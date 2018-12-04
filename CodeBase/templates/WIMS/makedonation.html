@@ -1,0 +1,9 @@
+{% extends "WIMS/donordashboard.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <form>
+    {{ form|crispy }}
+        <button type="submit" class="form-control btn btn-primary">Add Item to Donation</button>
+    </form>
+{% endblock %}

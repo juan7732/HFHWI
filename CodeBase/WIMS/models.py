@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 # Create your models here.
 
 
@@ -7,6 +8,7 @@ class Project(models.Model):
     ProjectID = models.AutoField(primary_key=True)
     ProjectName = models.CharField(max_length=45)
     ProjectZip = models.IntegerField()
+    ProjectState = models.IntegerField()
     DateProposed = models.DateField(null=True)
     DateAccepted = models.DateField(null=True, blank=True, default=None)
     DateCompleted = models.DateField(null=True, blank=True, default=None)
@@ -46,21 +48,14 @@ class ProjectMaterials(models.Model):
         return self.ItemID.Name
 
 
-class Donor(models.Model):
-    DonorID = models.AutoField(primary_key=True)
-    DonorName = models.CharField(max_length=45)
-    DonorUserName = models.CharField(max_length=45)
-    DonorPassword = models.CharField(max_length=45)
-    Business = models.BinaryField
-
-
 class Donation(models.Model):
     Quantity = models.IntegerField()
     ARV = models.DecimalField(null=True, decimal_places=2, max_digits=12)
     ItemID = models.ForeignKey('Item', on_delete=models.CASCADE)
-    DonorID = models.ForeignKey('Donor', on_delete=models.CASCADE)
+    DonorID = models.ForeignKey(User, on_delete=models.CASCADE)
+    DonationDate = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.DonorID.DonorName + ' ' + self.ItemID.Name
+        return self.DonorID.USERNAME_FIELD + ' ' + self.ItemID.Name
 
 

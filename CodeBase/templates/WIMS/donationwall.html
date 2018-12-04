@@ -1,14 +1,14 @@
 {% extends "WIMS/donordashboard.html" %}
 {% block content %}
-    {% for post in posts %}
+    {% for donation in donations %}
         <article class="media content-section">
           <div class="media-body">
             <div class="article-metadata">
-              <a class="mr-2" href="#"></a>
-              <small class="text-muted"></small>
+              <a class="mr-2" href="#">{{ donation.ItemID }}</a>
+              <small class="text-muted">{{ donation.DonationDate }}</small>
             </div>
-            <h2><a class="article-title" href="#"></a></h2>
-            <p class="article-content"></p>
+            <h2><a class="article-title" href="#">{{ donation.Quantity }}</a></h2>
+            <p class="article-content">Donated {{ donation.Quantity }} {{ donation.ItemID }} valued at {{ donation.ARV }}</p>
           </div>
         </article>
     {% endfor %}
