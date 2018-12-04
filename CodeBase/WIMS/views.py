@@ -16,3 +16,26 @@ def login(request):
     context = {}
     return HttpResponse(template.render(context, request))
 
+
+def donor_signup(request):
+    template = loader.get_template('WIMS/donorsignup.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
+
+def member_signup(request):
+    template = loader.get_template('WIMS/membersignup.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
+
+def member_dashboard(request):
+    template = loader.get_template('WIMS/memberdashboard.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
+
+def project_page(request, project_id):
+    template = loader.get_template('WIMS/projectpage.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
