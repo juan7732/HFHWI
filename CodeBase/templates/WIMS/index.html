@@ -40,6 +40,13 @@
 
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
+            {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
             <h1 class="display-4">Welcome to the Habitat for Humanity Project and Donation Page</h1>
             <p class="lead">We here at Habitat for Humanity want to empower individuals to help others through
                 donations

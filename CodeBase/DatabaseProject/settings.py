@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'WIMS.apps.WimsConfig',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +125,5 @@ DIRNAME = os.path.dirname(__file__)
 STATIC_ROOT = os.path.join(DIRNAME, 'static')
 
 STATIC_URL = '/static/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

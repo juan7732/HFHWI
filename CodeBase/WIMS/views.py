@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from .forms import UserRegisterForm
 
 # Create your views here.
 
@@ -18,20 +21,46 @@ def login(request):
 
 
 def donor_signup(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account created for {username}!')
+            return redirect('index')
+    else:
+        form = UserRegisterForm()
     template = loader.get_template('WIMS/donorsignup.html')
-    context = {}
+    context = {
+        'title': 'Donor',
+        'form': form,
+    }
     return HttpResponse(template.render(context, request))
 
 
 def member_signup(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account created for {username}!')
+            return redirect('index')
+    else:
+        form = UserRegisterForm()
     template = loader.get_template('WIMS/membersignup.html')
-    context = {}
+    context = {
+        'title': 'Volunteer',
+        'form': form,
+    }
     return HttpResponse(template.render(context, request))
 
 
 def member_dashboard(request):
     template = loader.get_template('WIMS/memberdashboard.html')
-    context = {}
+    context = {
+        'type': 'Proposed',
+    }
     return HttpResponse(template.render(context, request))
 
 

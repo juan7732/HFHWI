@@ -1,31 +1,6 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
-
-
-class User(models.Model):
-    UserID = models.AutoField(primary_key=True)
-    FirstName = models.CharField(max_length=30)
-    LastName = models.CharField(max_length=30)
-    Phone = models.CharField(max_length=45)
-    ZipCode = models.IntegerField()
-    DateJoined = models.DateField()
-
-    def __str__(self):
-        return self.FirstName + ' ' + self.LastName
-
-
-class Admin(models.Model):
-    UserID = models.ForeignKey('User', on_delete=models.CASCADE)
-    ImpersonationID = models.IntegerField(null=True)
-
-
-class Authentication(models.Model):
-    UserId = models.ForeignKey('User', on_delete=models.CASCADE)
-    UserName = models.CharField(primary_key=True, max_length=45)
-    Password = models.TextField()
-    LastLogin = models.DateTimeField()
-    Instances = models.IntegerField()
 
 
 class Project(models.Model):
@@ -33,16 +8,19 @@ class Project(models.Model):
     ProjectName = models.CharField(max_length=45)
     ProjectZip = models.IntegerField()
     DateProposed = models.DateField(null=True)
-    DateAccepted = models.DateField(null=True)
-    DateCompleted = models.DateField(null=True)
+    DateAccepted = models.DateField(null=True, blank=True, default=None)
+    DateCompleted = models.DateField(null=True, blank=True, default=None)
     ProjectLocation = models.TextField()
-    ProjectDescription = models.TextField(null=True)
+    ProjectDescription = models.TextField(null=False)
+
+    def __str__(self):
+        return self.ProjectName
 
 
 class ProjectMembers(models.Model):
     ProjectLead = models.BinaryField()
     ProjectID = models.ForeignKey('Project', on_delete=models.CASCADE)
-    UserId = models.ForeignKey('User', on_delete=models.CASCADE)
+    UserId = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Item(models.Model):
@@ -54,12 +32,18 @@ class Item(models.Model):
     Weight = models.DecimalField(null=True, decimal_places=2, max_digits=12)
     Image = models.TextField()  # null? look up image field stuff idk
 
+    def __str__(self):
+        return self.Name
+
 
 class ProjectMaterials(models.Model):
     QuantityNeeded = models.IntegerField()
     QuantityAcquired = models.IntegerField()
     ProjectID = models.ForeignKey('Project', on_delete=models.CASCADE)  # many to many relationship how to handle????
     ItemID = models.ForeignKey('Item', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.ItemID.Name
 
 
 class Donor(models.Model):
@@ -70,10 +54,14 @@ class Donor(models.Model):
     Business = models.BinaryField
 
 
+
 class Donation(models.Model):
     Quantity = models.IntegerField()
     ARV = models.DecimalField(null=True, decimal_places=2, max_digits=12)
     ItemID = models.ForeignKey('Item', on_delete=models.CASCADE)
     DonorID = models.ForeignKey('Donor', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.DonorID.DonorName + ' ' + self.ItemID.Name
 
 
