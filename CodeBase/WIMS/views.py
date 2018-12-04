@@ -4,6 +4,7 @@ from django.template import loader
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import UserRegisterForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -50,6 +51,7 @@ def member_signup(request):
     return HttpResponse(template.render(context, request))
 
 
+@login_required
 def member_dashboard(request):
     template = loader.get_template('WIMS/memberdashboard.html')
     context = {
@@ -58,12 +60,14 @@ def member_dashboard(request):
     return HttpResponse(template.render(context, request))
 
 
+@login_required
 def donor_dashboard(request):
     template = loader.get_template('WIMS/donordashboard.html')
     context = {}
     return HttpResponse(template.render(context, request))
 
 
+@login_required
 def project_page(request, project_id):
     template = loader.get_template('WIMS/projectpage.html')
     context = {}
