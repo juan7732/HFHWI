@@ -27,15 +27,21 @@
 
 <body>
 
-
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand">
             <img src="{% static "images/NavBarImage.png" %}">
             </a>
+    {% if user.is_authenticated %}
+        <form class="form-inline">
+            <p class="lead my-2 mr-sm-2">You are currently signed in as {{ user.username }}</p>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="location.href='{% url 'logout' %}';">Logout</button>
+        </form>
+    {% else %}
         <form class="form-inline">
             <p class="lead my-2 mr-sm-2">Already a member?</p>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="location.href='login';">Login</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="location.href='{% url 'login' %}';">Login</button>
         </form>
+    {% endif %}
     </nav>
 
     <div class="jumbotron jumbotron-fluid">

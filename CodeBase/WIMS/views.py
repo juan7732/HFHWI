@@ -14,20 +14,14 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
-def login(request):
-    template = loader.get_template('WIMS/login.html')
-    context = {}
-    return HttpResponse(template.render(context, request))
-
-
 def donor_signup(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}!')
-            return redirect('index')
+            messages.success(request, f'Your Account has been created! You are now ready to log in!')
+            return redirect('login')
     else:
         form = UserRegisterForm()
     template = loader.get_template('WIMS/donorsignup.html')
@@ -44,8 +38,8 @@ def member_signup(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}!')
-            return redirect('index')
+            messages.success(request, f'Your Account has been created! You are now ready to log in!!')
+            return redirect('login')
     else:
         form = UserRegisterForm()
     template = loader.get_template('WIMS/membersignup.html')
