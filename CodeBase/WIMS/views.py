@@ -35,6 +35,12 @@ def member_dashboard(request):
     return HttpResponse(template.render(context, request))
 
 
+def donor_dashboard(request):
+    template = loader.get_template('WIMS/donordashboard.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
+
 def project_page(request, project_id):
     template = loader.get_template('WIMS/projectpage.html')
     context = {}

@@ -52,13 +52,13 @@ class Item(models.Model):
     InStock = models.IntegerField()
     ARV = models.DecimalField(decimal_places=2, max_digits=12)
     Weight = models.DecimalField(null=True, decimal_places=2, max_digits=12)
-    Image = models.TextField()#null? look up image field stuff idk
+    Image = models.TextField()  # null? look up image field stuff idk
 
 
 class ProjectMaterials(models.Model):
     QuantityNeeded = models.IntegerField()
     QuantityAcquired = models.IntegerField()
-    ProjectID = models.ForeignKey('Project', on_delete=models.CASCADE)#many to many relationship how to handle????
+    ProjectID = models.ForeignKey('Project', on_delete=models.CASCADE)  # many to many relationship how to handle????
     ItemID = models.ForeignKey('Item', on_delete=models.CASCADE)
 
 
