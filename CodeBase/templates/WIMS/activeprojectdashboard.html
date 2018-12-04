@@ -1,0 +1,13 @@
+{% extends 'WIMS/basememberdashboard.html' %}
+
+{% block content %}
+    {% for project in projects %}
+    <tr>
+        <td>{{project.ProjectID}}</td>
+        <td>{{project.ProjectName}}</td>
+        <td>{{project.DateProposed}}</td>
+        <td>{{project.ProjectZip}}</td>
+        <td><a href="project_page/{{ project.ProjectID }}" class="badge badge-dark">Go to project page</a></td>
+    </tr>
+    {% endfor %}
+{% endblock %}

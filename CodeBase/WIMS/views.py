@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
+from .models import Project, ProjectMembers
 
 # Create your views here.
 
@@ -52,10 +53,39 @@ def member_signup(request):
 
 
 @login_required
-def member_dashboard(request):
-    template = loader.get_template('WIMS/memberdashboard.html')
+def member_dashboard_active(request):
+    template = loader.get_template('WIMS/activeprojectdashboard.html')
+    #projects = Project.objects.filter(DateAccepted=notNone)
+    projects = Project.objects.filter(DateCompleted=None)
+    context = {
+        'type': 'Active',
+        'projects': projects
+    }
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def member_dashboard_completed(request):
+    template = loader.get_template('WIMS/completedprojectdashboard.html')
+    context = {
+        'type': 'Completed',
+    }
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def member_dashboard_proposed(request):
+    template = loader.get_template('WIMS/proposedprojectdashboard.html')
     context = {
         'type': 'Proposed',
+    }
+    return HttpResponse(template.render(context, request))
+
+@login_required
+def member_dashboard_search(request):
+    template = loader.get_template('WIMS/searchprojectdashboard.html')
+    context = {
+        'type': 'Results',
     }
     return HttpResponse(template.render(context, request))
 

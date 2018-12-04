@@ -54,7 +54,6 @@ class Donor(models.Model):
     Business = models.BinaryField
 
 
-
 class Donation(models.Model):
     Quantity = models.IntegerField()
     ARV = models.DecimalField(null=True, decimal_places=2, max_digits=12)
