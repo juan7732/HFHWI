@@ -53,6 +53,16 @@ def member_signup(request):
 
 
 @login_required
+def member_dashboard_all(request):
+    template = loader.get_template('WIMS/allprojectdashboard.html')
+    projects = Project.objects.raw('SELECT * FROM wims_Project')
+    context = {
+        'type': 'All',
+        'projects': projects
+    }
+    return HttpResponse(template.render(context, request))
+
+@login_required
 def member_dashboard_active(request):
     template = loader.get_template('WIMS/activeprojectdashboard.html')
     projects = Project.objects.raw('SELECT * FROM wims_Project WHERE ProjectState=2')
@@ -91,7 +101,7 @@ def member_dashboard_search(request, searchTerm):
     projects = Project.objects.raw("SELECT * FROM wims_Project WHERE Name like '%" + searchTerm + "%'")
     context = {
         'type': 'Results',
-        'projects':projects
+        'projects': projects,
     }
     return HttpResponse(template.render(context, request))
 

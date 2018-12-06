@@ -6,10 +6,11 @@ from django.contrib.auth.forms import UserCreationForm
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
+    name = forms.CharField(required=True)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'name', 'password1', 'password2']
 
 
 class CreateItemForm(forms.Form):
@@ -17,7 +18,7 @@ class CreateItemForm(forms.Form):
     description = forms.CharField(required=True)
     arv = forms.FloatField(required=True)
     weight = forms.FloatField(required=True)
-    image = "None"
+    image = forms.ImageField(required=True)
 
     class Meta:
         model = Item

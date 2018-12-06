@@ -24,15 +24,18 @@ class ProjectMembers(models.Model):
     ProjectID = models.ForeignKey('Project', on_delete=models.CASCADE)
     UserId = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.UserId.first_name
+
 
 class Item(models.Model):
     ItemID = models.AutoField(primary_key=True)
     Name = models.CharField(max_length=45)
     Description = models.TextField()
+    Category = models.CharField(max_length=50)
     InStock = models.IntegerField()
     ARV = models.DecimalField(decimal_places=2, max_digits=12)
-    Weight = models.DecimalField(null=True, decimal_places=2, max_digits=12)
-    Image = models.TextField()  # null? look up image field stuff idk
+    BinLocation = models.IntegerField
 
     def __str__(self):
         return self.Name
@@ -50,7 +53,6 @@ class ProjectMaterials(models.Model):
 
 class Donation(models.Model):
     Quantity = models.IntegerField()
-    ARV = models.DecimalField(null=True, decimal_places=2, max_digits=12)
     ItemID = models.ForeignKey('Item', on_delete=models.CASCADE)
     DonorID = models.ForeignKey(User, on_delete=models.CASCADE)
     DonationDate = models.DateTimeField(default=timezone.now)
