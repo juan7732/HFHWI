@@ -17,8 +17,6 @@ class CreateItemForm(forms.Form):
     name = forms.CharField(required=True)
     description = forms.CharField(required=True)
     arv = forms.FloatField(required=True)
-    weight = forms.FloatField(required=True)
-    image = forms.ImageField(required=True)
 
     class Meta:
         model = Item
