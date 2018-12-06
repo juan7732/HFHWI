@@ -3,9 +3,9 @@ from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from .forms import UserRegisterForm, CreateItemForm, MakeDonationForm
+from .forms import UserRegisterForm, CreateItemForm, MakeDonationForm, ProposeProjectForm
 from django.contrib.auth.decorators import login_required
-from .models import Project, ProjectMembers, Donation, User
+from .models import Project, ProjectMembers, Donation, User, Item, ProjectMaterials
 
 # Create your views here.
 
@@ -155,10 +155,28 @@ def project_page(request, project_id):
     project = Project.objects.get(pk=project_id)
     # members = ProjectMembers.objects.raw("SELECT * FROM wims_Projectmembers WHERE ProjectID_id=" + str(project_id))
     members = User.objects.raw("SELECT * FROM auth_User as a INNER JOIN wims_Projectmembers as w ON a.id=w.UserId_id WHERE w.ProjectID_id=" + str(project_id))
+    project_materials = Item.objects.raw("SELECT * FROM wims_Item as a INNER JOIN wims_Projectmaterials as b ON a.ItemID=b.ItemID_id")
     memberCount = str(len(members))
     context = {
         'project': project,
         'members': members,
         'memberCount': memberCount,
+        'project_materials': project_materials
+    }
+    return HttpResponse(template.render(context, request))
+
+
+def propose_project(request):
+    template = loader.get_template('WIMS/proposeproject.html')
+    if request.method == 'POST':
+        form = ProposeProjectForm(request.POST)
+        if form.is_valid():
+            newProject = form.save()
+            return redirect('member_dashboard_all')
+    else:
+        form = ProposeProjectForm()
+    context = {
+        'type': 'Propose',
+        'form': form
     }
     return HttpResponse(template.render(context, request))

@@ -11,6 +11,7 @@ urlpatterns = [
     path('members/dashboard/proposed/', views.member_dashboard_proposed, name='member_dashboard_proposed'),
     path('members/dashboard/completed/', views.member_dashboard_completed, name='member_dashboard_completed'),
     path('members/dashboard/search/<str:searchTerm>/', views.member_dashboard_search, name='member_dashboard_search'),
+    path('members/dashboard/propose', views.propose_project, name='propose_project'),
     path('members/projects/<int:project_id>/', views.project_page, name='project_page'),
     path('donors/dashboard/', views.donor_dashboard, name='donor_dashboard'),
     path('donors/makedonation/', views.make_donation, name='make_donation'),

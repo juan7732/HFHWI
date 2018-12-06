@@ -1,5 +1,5 @@
 from django import forms
-from .models import Donation, Item
+from .models import Donation, Item, Project
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -30,3 +30,18 @@ class MakeDonationForm(forms.Form):
     class Meta:
         model = Donation
         fields = ['quantity']
+
+
+class ProposeProjectForm(forms.ModelForm):
+    ProjectState = forms.IntegerField(max_value=1, min_value=1)
+    ProjectName = forms.CharField(required=True)
+    ProjectZip = forms.IntegerField(required=True)
+    DateProposed = forms.DateField(required=True)
+    ProjectLocation = forms.CharField(required=True)
+    ProjectDescription = forms.CharField(required=True)
+
+    class Meta:
+        model = Project
+        fields = ['ProjectState','ProjectName', 'ProjectZip', 'DateProposed', 'ProjectLocation', 'ProjectDescription']
+
+
