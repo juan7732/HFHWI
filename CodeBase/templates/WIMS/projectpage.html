@@ -23,7 +23,7 @@
             {% else %}
             <h1>State: Completed</h1>
             {% endif %}
-            <p>The project is located in {{ project.ProjectLocation }}, {{ project.ProjectZip }}</p>
+            <p>The project is located at {{ project.ProjectLocation }}, {{ project.ProjectZip }}</p>
         </div>
         <div class="container">
             <div class="btn-group btn-group-lg" role="group" aria-label="Back">
@@ -46,8 +46,9 @@
             {% for member in members %}
                 <tr>
                 <td>{{ member.id }}</td>
-                <td>{{ member.UserID.firstname }}</td>
-                <td>{{ member.UserID.lastname }}</td>
+                <td>{{ member.first_name }}</td>
+                <td>{{ member.last_name }}</td>
+                <td>{{ member.username }}</td>
                 </tr>
             {% endfor %}
             </tbody>

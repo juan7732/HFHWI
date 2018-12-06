@@ -98,7 +98,7 @@ def member_dashboard_proposed(request):
 @login_required
 def member_dashboard_search(request, searchTerm):
     template = loader.get_template('WIMS/searchprojectdashboard.html')
-    projects = Project.objects.raw("SELECT * FROM wims_Project WHERE ProjectName like '%" + searchTerm + "%'")
+    projects = Project.objects.raw("SELECT * FROM wims_Project WHERE ProjectName like '%" + " ".join(searchTerm.split('+')) + "%'")
     context = {
         'type': 'Results',
         'projects': projects,
@@ -153,7 +153,8 @@ def make_donation_two(request):
 def project_page(request, project_id):
     template = loader.get_template('WIMS/projectpage.html')
     project = Project.objects.get(pk=project_id)
-    members = ProjectMembers.objects.raw("SELECT * FROM wims_Projectmembers WHERE ProjectID_id=" + str(project_id))
+    # members = ProjectMembers.objects.raw("SELECT * FROM wims_Projectmembers WHERE ProjectID_id=" + str(project_id))
+    members = User.objects.raw("SELECT * FROM auth_User as a INNER JOIN wims_Projectmembers as w ON a.id=w.UserId_id WHERE w.ProjectID_id=" + str(project_id))
     memberCount = str(len(members))
     context = {
         'project': project,

@@ -25,7 +25,7 @@ class ProjectMembers(models.Model):
     UserId = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.UserId.first_name
+        return self.UserId.username
 
 
 class Item(models.Model):
@@ -58,6 +58,6 @@ class Donation(models.Model):
     DonationDate = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.DonorID.USERNAME_FIELD + ' ' + self.ItemID.Name
+        return self.DonorID.username + ' ' + self.ItemID.Name
 
 

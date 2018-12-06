@@ -129,7 +129,10 @@
             searchbtn.addEventListener('onclick', goToSearch);
 
             function goToSearch() {
-                location.href="../../dashboard/search/" + searchbar.value.split(' ').join('+');
+                location.href="{% if type == 'Results' %}../../search/" + searchbar.value.split(' ').join('+')
+                    {% else %}../search/" + searchbar.value.split(' ').join('+')
+                    {% endif %}
+                ;
             }
     </script>
 
