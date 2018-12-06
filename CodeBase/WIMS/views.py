@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import UserRegisterForm, CreateItemForm, MakeDonationForm
 from django.contrib.auth.decorators import login_required
-from .models import Project, ProjectMembers, Donation
+from .models import Project, ProjectMembers, Donation, User
 
 # Create your views here.
 
@@ -98,7 +98,7 @@ def member_dashboard_proposed(request):
 @login_required
 def member_dashboard_search(request, searchTerm):
     template = loader.get_template('WIMS/searchprojectdashboard.html')
-    projects = Project.objects.raw("SELECT * FROM wims_Project WHERE Name like '%" + searchTerm + "%'")
+    projects = Project.objects.raw("SELECT * FROM wims_Project WHERE ProjectName like '%" + searchTerm + "%'")
     context = {
         'type': 'Results',
         'projects': projects,
@@ -153,7 +153,11 @@ def make_donation_two(request):
 def project_page(request, project_id):
     template = loader.get_template('WIMS/projectpage.html')
     project = Project.objects.get(pk=project_id)
+    members = ProjectMembers.objects.raw("SELECT * FROM wims_Projectmembers WHERE ProjectID_id=" + str(project_id))
+    memberCount = str(len(members))
     context = {
         'project': project,
+        'members': members,
+        'memberCount': memberCount,
     }
     return HttpResponse(template.render(context, request))
